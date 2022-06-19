@@ -1,19 +1,22 @@
 NAME	=	philo
-SRCS	=	main.c
+SRCS	=	pseudo.c
 HDRS	=	philo.h
 INCL	=	$(addprefix -I, $(HDRS))
 OBJS	=	$(SRCS:.c=.o)
 CC		=	clang
-CLFAGS	+=	-g -Wall -Wextra -Werror
+CLFAGS	+=	-Wall -Wextra -Werror
+# DFLAGS	=	-g
+DFLAGS	=	-fsanitize=thread
+# DFLAGS	=	-fsanitize=address
 .PHONY:		all clean fclean re
 
 all:		$(NAME)
 
 $(NAME):	$(OBJS)
-	$(CC) $(CLFAGS) $(INCL) $(OBJS) -o $(NAME)
+	$(CC) $(CLFAGS) $(DFLAGS) $(INCL) $(OBJS) -o $(NAME)
 
 %.o:		%.c $(HDRS)
-	$(CC) $(CLFAGS) $(ICNL) $< -c
+	$(CC) $(CLFAGS) $(DFLAGS) $(ICNL) $< -c
 
 re:			fclean all
 
