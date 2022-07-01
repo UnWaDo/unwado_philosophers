@@ -6,7 +6,7 @@
 /*   By: lalex <lalex@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 22:41:09 by lalex             #+#    #+#             */
-/*   Updated: 2022/07/01 22:41:10 by lalex            ###   ########.fr       */
+/*   Updated: 2022/07/02 00:47:41 by lalex            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ unsigned int	get_ms_timestamp(struct timeval start)
 		+ (now.tv_usec - start.tv_usec) / 1000);
 }
 
-int	check_death(t_philo *philo)
+static int	check_death(t_philo *philo, unsigned int *min_death_time)
 {
 	unsigned int	now;
 	unsigned int	ret;
@@ -36,6 +36,8 @@ int	check_death(t_philo *philo)
 		pthread_mutex_unlock(philo->m_is_end);
 		ret = 1;
 	}
+	else if (philo->last_eat_time + philo->options[DIE_TIME] < *min_death_time)
+		*min_death_time = philo->last_eat_time + philo->options[DIE_TIME];
 	pthread_mutex_unlock(&(philo->m_last_eat_time));
 	if (ret)
 	{
@@ -47,7 +49,7 @@ int	check_death(t_philo *philo)
 	return (ret);
 }
 
-int	check_ate_enough(t_philos *philos)
+static int	check_ate_enough(t_philos *philos)
 {
 	unsigned int	i;
 	int				all_ate;
@@ -75,12 +77,21 @@ int	check_ate_enough(t_philos *philos)
 void	control_simulation(t_philos *philos)
 {
 	unsigned int	i;
+	unsigned int	next_check;
+	unsigned int	now;
 
+	if (philos->options[DIE_TIME] > philos->options[EAT_TIME])
+		next_check = philos->options[EAT_TIME];
+	else
+		next_check = philos->options[DIE_TIME];
 	while (!philos->is_end)
 	{
+		now = get_ms_timestamp(philos->start_time);
+		if (next_check > now + 1)
+			usleep((next_check - now - 1) * 1000);
 		i = 0;
 		while (i < philos->options[PHILOS_NUMBER]
-			&& !check_death(philos->philos + i))
+			&& !check_death(philos->philos + i, &next_check))
 			i++;
 		if (i < philos->options[PHILOS_NUMBER] || check_ate_enough(philos))
 			break ;

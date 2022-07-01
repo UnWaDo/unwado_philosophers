@@ -6,13 +6,13 @@
 /*   By: lalex <lalex@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 22:40:03 by lalex             #+#    #+#             */
-/*   Updated: 2022/07/01 23:15:19 by lalex            ###   ########.fr       */
+/*   Updated: 2022/07/02 00:54:38 by lalex            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	philo_try_taking_fork(t_philo *philo, pthread_mutex_t *fork)
+static int	philo_try_taking_fork(t_philo *philo, pthread_mutex_t *fork)
 {
 	pthread_mutex_lock(fork);
 	if (!philo_write(philo, "has taken a fork"))
@@ -34,7 +34,7 @@ static int	philo_await(t_philo *philo)
 	return (0);
 }
 
-int	philo_take_forks(t_philo *philo)
+static int	philo_take_forks(t_philo *philo)
 {
 	pthread_mutex_t	*first;
 	pthread_mutex_t	*second;

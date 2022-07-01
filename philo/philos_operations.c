@@ -6,7 +6,7 @@
 /*   By: lalex <lalex@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 22:41:11 by lalex             #+#    #+#             */
-/*   Updated: 2022/07/01 22:41:12 by lalex            ###   ########.fr       */
+/*   Updated: 2022/07/02 00:53:51 by lalex            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	destroy_philosopher(t_philo *philo)
 	pthread_mutex_destroy(&(philo->m_eat_number));
 }
 
-int	create_philosophers(t_philos *philos)
+static int	create_philosophers(t_philos *philos)
 {
 	unsigned int	i;
 
