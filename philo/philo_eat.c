@@ -6,7 +6,7 @@
 /*   By: lalex <lalex@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 22:40:03 by lalex             #+#    #+#             */
-/*   Updated: 2022/07/01 22:41:05 by lalex            ###   ########.fr       */
+/*   Updated: 2022/07/01 23:15:19 by lalex            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,12 @@ static int	philo_await(t_philo *philo)
 {
 	unsigned int	x;
 
-	if (philo->eat_number == 0 && philo->id % 2 == 0)
-		usleep(philo->options[EAT_TIME] * 1000);
-	if (philo->options[PHILOS_NUMBER] % 2
-		&& philo->options[EAT_TIME] >= philo->options[SLEEP_TIME])
-	{
-		if (philo->eat_number == 0
-			&& philo->id == philo->options[PHILOS_NUMBER])
-			usleep(philo->options[EAT_TIME] * 2 * 1000);
-		x = (philo->id - 1 - 1 * (philo->id == philo->options[PHILOS_NUMBER]))
-			/ 2 + 1;
-		if (philo->eat_number >= x && (philo->eat_number - x) % 2 == 0)
-			usleep((philo->options[EAT_TIME]) * 1000);
-	}
+	if (philo->options[PHILOS_NUMBER] % 2 == 0)
+		return (0);
+	x = (philo->id - 1
+			- 1 * (philo->id == philo->options[PHILOS_NUMBER])) / 2 + 1;
+	if (philo->eat_number >= x && (philo->eat_number - x) % 2 == 0)
+		usleep((philo->options[EAT_TIME]) * 1000);
 	return (0);
 }
 
