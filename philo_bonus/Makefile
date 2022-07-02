@@ -18,7 +18,7 @@ $(NAME):	$(OBJS)
 	$(CC) $(CLFAGS) $(DFLAGS) $(LFLAGS) $(INCL) $(OBJS) -o $(NAME)
 
 %.o:		%.c $(HDRS)
-	$(CC) $(CLFAGS) $(DFLAGS) $(ICNL) $< -c
+	$(CC) $(CLFAGS) $(DFLAGS) $(LFLAGS) $(ICNL) $< -c
 
 re:			fclean all
 
