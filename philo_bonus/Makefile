@@ -1,6 +1,7 @@
 NAME	=	philo_bonus
 SRCS	=	main.c initializer.c numeric.c philo_eat.c \
-				philo_other.c philos_control.c additional.c
+				philo_other.c philos_control.c additional.c \
+				run_simulation.c
 HDRS	=	philo.h
 INCL	=	$(addprefix -I, $(HDRS))
 OBJS	=	$(SRCS:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: lalex <lalex@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 22:41:07 by lalex             #+#    #+#             */
-/*   Updated: 2022/07/02 13:40:13 by lalex            ###   ########.fr       */
+/*   Updated: 2022/07/02 13:49:26 by lalex            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ int	philo_write(t_philo *philo, char *str)
 	ret = 0;
 	sem_wait(philo->philos->s_output);
 	if (!philo_is_end(philo))
+	{
 		printf("%d %d %s\n",
 			get_ms_timestamp(philo->philos->start_time), philo->id, str);
+	}
 	else
 		ret = 1;
 	sem_post(philo->philos->s_output);

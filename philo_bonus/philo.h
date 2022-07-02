@@ -6,7 +6,7 @@
 /*   By: lalex <lalex@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 22:39:56 by lalex             #+#    #+#             */
-/*   Updated: 2022/07/02 13:08:37 by lalex            ###   ########.fr       */
+/*   Updated: 2022/07/02 14:17:39 by lalex            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,6 @@ void	control_simulation(t_philos *philos);
 void	clean_philos(t_philos *philos);
 void	close_semaphore(sem_t *sem, char *name);
 void	ft_mssleep(uint duration);
+void	*philo_control(void *philo_raw);
 
 #endif
