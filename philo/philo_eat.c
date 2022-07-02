@@ -6,7 +6,7 @@
 /*   By: lalex <lalex@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 22:40:03 by lalex             #+#    #+#             */
-/*   Updated: 2022/07/02 00:54:38 by lalex            ###   ########.fr       */
+/*   Updated: 2022/07/02 06:05:21 by lalex            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ static int	philo_await(t_philo *philo)
 	x = (philo->id - 1
 			- 1 * (philo->id == philo->options[PHILOS_NUMBER])) / 2 + 1;
 	if (philo->eat_number >= x && (philo->eat_number - x) % 2 == 0)
-		usleep((philo->options[EAT_TIME]) * 1000);
+		ft_mssleep(philo->options[EAT_TIME]);
+		// usleep((philo->options[EAT_TIME]) * 1000);
 	return (0);
 }
 
@@ -73,7 +74,8 @@ int	philo_eat(t_philo *philo)
 	pthread_mutex_unlock(&(philo->m_last_eat_time));
 	ret = 0;
 	if (!philo_write(philo, "is eating"))
-		usleep(philo->options[EAT_TIME] * 1000);
+		ft_mssleep(philo->options[EAT_TIME]);
+		// usleep(philo->options[EAT_TIME] * 1000);
 	else
 		ret = 1;
 	pthread_mutex_unlock(philo->m_right_fork);

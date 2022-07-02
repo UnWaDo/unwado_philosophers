@@ -6,39 +6,22 @@
 /*   By: lalex <lalex@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 22:39:44 by lalex             #+#    #+#             */
-/*   Updated: 2022/07/01 22:39:45 by lalex            ###   ########.fr       */
+/*   Updated: 2022/07/02 06:09:55 by lalex            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static unsigned int	*check_args_num(int argc, char *argv[])
+int	parse_args(int argc, char *argv[], unsigned int options[PARAMS_NUMBER])
 {
-	unsigned int	*options;
+	int	i;
 
 	if (argc < PARAMS_NUMBER || argc > PARAMS_NUMBER + 1)
 	{
 		printf("Error: invalid number of arguments\n");
 		printf(HELP_USAGE, argv[0]);
-		return (NULL);
+		return (1);
 	}
-	options = malloc(sizeof(*options) * PARAMS_NUMBER);
-	if (!options)
-	{
-		printf("Error: memory allocation failed\n");
-		return (NULL);
-	}
-	return (options);
-}
-
-unsigned int	*parse_args(int argc, char *argv[])
-{
-	unsigned int	*options;
-	int				i;
-
-	options = check_args_num(argc, argv);
-	if (!options)
-		return (NULL);
 	i = 1;
 	while (i < argc && is_num(argv[i]))
 	{
@@ -51,12 +34,11 @@ unsigned int	*parse_args(int argc, char *argv[])
 	{
 		printf("Error: arguments are invalid or not numeric\n");
 		printf(HELP_USAGE, argv[0]);
-		free(options);
-		return (NULL);
+		return (1);
 	}
 	if (argc - 1 < PARAMS_NUMBER)
 		options[PARAMS_NUMBER - 1] = 0;
-	return (options);
+	return (0);
 }
 
 int	run_simulation(t_philos *philos)
@@ -105,8 +87,16 @@ void	clean_philos(t_philos *philos)
 	}
 	free(philos->philos);
 	free(philos->m_forks);
-	free(philos->options);
 	pthread_mutex_destroy(&(philos->m_is_end));
 	pthread_mutex_destroy(&(philos->m_output));
 	pthread_mutex_destroy(&(philos->m_is_start));
+}
+
+void	ft_mssleep(unsigned int duration)
+{
+	struct timeval	start;
+
+	gettimeofday(&start, NULL);
+	while (get_ms_timestamp(start) < duration)
+		usleep(duration * 10);
 }

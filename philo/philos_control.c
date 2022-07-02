@@ -6,7 +6,7 @@
 /*   By: lalex <lalex@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 22:41:09 by lalex             #+#    #+#             */
-/*   Updated: 2022/07/02 00:47:41 by lalex            ###   ########.fr       */
+/*   Updated: 2022/07/02 06:06:32 by lalex            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ void	control_simulation(t_philos *philos)
 	{
 		now = get_ms_timestamp(philos->start_time);
 		if (next_check > now + 1)
-			usleep((next_check - now - 1) * 1000);
+			// usleep((next_check - now - 1) * 1000);
+			ft_mssleep(next_check - now - 1);
 		i = 0;
 		while (i < philos->options[PHILOS_NUMBER]
 			&& !check_death(philos->philos + i, &next_check))

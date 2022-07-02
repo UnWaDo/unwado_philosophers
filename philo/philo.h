@@ -6,7 +6,7 @@
 /*   By: lalex <lalex@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 22:39:56 by lalex             #+#    #+#             */
-/*   Updated: 2022/07/02 00:54:47 by lalex            ###   ########.fr       */
+/*   Updated: 2022/07/02 06:06:58 by lalex            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct s_philo {
 typedef struct s_philos {
 	t_philo			*philos;
 	struct timeval	start_time;
-	unsigned int	*options;
+	unsigned int	options[PARAMS_NUMBER];
 	int				is_end;
 	pthread_mutex_t	m_is_end;
 	pthread_mutex_t	m_is_start;
@@ -62,7 +62,8 @@ typedef struct s_philos {
 
 unsigned int	is_num(char *str);
 int				to_num(char *str);
-unsigned int	*parse_args(int argc, char *argv[]);
+int				parse_args(int argc, char *argv[],
+					unsigned int options[PARAMS_NUMBER]);
 int				create_mutexes(t_philos *philos);
 int				create_philosopher(t_philos *philos, int i);
 void			destroy_philosopher(t_philo *philo);
@@ -77,5 +78,6 @@ int				run_simulation(t_philos *philos);
 unsigned int	get_ms_timestamp(struct timeval start);
 void			control_simulation(t_philos *philos);
 void			clean_philos(t_philos *philos);
+void			ft_mssleep(unsigned int duration);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lalex <lalex@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 22:39:48 by lalex             #+#    #+#             */
-/*   Updated: 2022/07/01 22:39:49 by lalex            ###   ########.fr       */
+/*   Updated: 2022/07/02 05:57:42 by lalex            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ int	main(int argc, char *argv[])
 {
 	t_philos	philos;
 
-	philos.options = parse_args(argc, argv);
-	if (philos.options == NULL)
+	if (parse_args(argc, argv, philos.options))
 		return (1);
 	if (prepare_philosophers(&philos))
 		return (1);
